@@ -1,0 +1,11 @@
+redis
+requests
+
+Scrapy==2.5.0
+pandas==1.2.3
+psycopg2-binary==2.8.6
+openpyxl==3.0.7
+tenacity==7.0.0
+s3fs==0.6.0
+pymongo[srv]==3.11.2
+sentry-sdk==1.0.0

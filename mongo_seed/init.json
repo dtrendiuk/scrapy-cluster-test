@@ -1,0 +1,17 @@
+[
+   {
+      "provider":"proxycrawl",
+      "token":"redacted",
+      "in_used":false
+   },
+   {
+      "provider":"crawlera",
+      "token":"redacted",
+      "in_used":false
+   },
+   {
+      "provider":"proxycrawl_js",
+      "token":"redacted",
+      "in_used":false
+   }
+]

@@ -1,0 +1,10 @@
+-r ./scrapyd/requirements.txt
+-r ./scrapy_project/requirements.txt
+-r ./api/requirements.txt
+-r ./kafka_monitor/requirements.txt
+flake8
+black
+isort
+rope
+pytest
+pre-commit==2.11.1

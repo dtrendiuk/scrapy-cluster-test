@@ -1,0 +1,104 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
+  mongo_seed:
+    container_name: mongo_seed
+    build: ./mongo_seed
+    depends_on:
+      - mongo
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_CREATE_TOPICS: "todo_jobs:1:1,done_jobs:1:1"
+      KAFKA_ADVERTISED_HOST_NAME: 172.17.0.1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper
+    depends_on:
+      - zookeeper
+
+  scrapyd:
+    build:
+        context: .
+        dockerfile: ./scrapyd/Dockerfile
+
+    environment:
+        USERNAME: debug
+        PASSWORD: debug
+
+        CALLBACK_URL: http://api/callback
+
+        BUCKET_REGION: sfo2
+        BUCKET_ACCESS_KEY:
+        BUCKET_SECRET_KEY:
+
+        SENTRY_DSN:
+        SENTRY_ENABLED: "false"
+
+        MONGODB: mongo://mongo
+        KAFKA_HOST: kafka:9092 # separated by semicolon
+        KAFKA_SSL: "True"
+    ports:
+      - "6800:6800"
+    depends_on:
+      - kafka
+      - mongo
+
+  kafka_monitor:
+    build:
+        context: .
+        dockerfile: ./kafka_monitor/Dockerfile
+
+    entrypoint: ["bash", "/code/entrypoint.sh"]
+    environment:
+        KAFKA_HOST: kafka:9092 # separated by semicolon
+        KAFKA_SSL: "True"
+        SCRAPYD_HOST: scrapyd:6800
+        SCRAPYD_USERNAME: debug
+        SCRAPYD_PASSWORD: debug
+
+        SENTRY_DSN:
+        SENTRY_ENABLED: "false"
+        SENTRY_ENVIRONMENT: dev
+
+        MONGODB: mongo://mongo
+    depends_on:
+      - kafka
+      - scrapyd
+      - api # Temporary
+    volumes:
+      - "./kafka_monitor:/code"
+      - "./scrapy_project:/scrapy_project"
+      - "./wait:/wait"
+
+  api:
+    build:
+        context: .
+        dockerfile: ./api/Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      GUNICORN_CMD_ARGS: --reload
+      SENTRY_DSN:
+      SENTRY_ENABLED: "false"
+      SENTRY_ENVIRONMENT: dev
+      MONGODB: mongo://mongo
+      KAFKA_HOST: kafka:9092 # separated by semicolon
+      KAFKA_SSL: "True"
+    depends_on:
+      - kafka
+      - mongo
+    volumes:
+      - "./api/app:/app"
+      - "./wait:/wait"

@@ -1,0 +1,5 @@
+scrapyd
+requests
+rq
+raven
+kafka-python
