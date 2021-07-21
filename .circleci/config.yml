@@ -3,18 +3,21 @@ version: 2.0
 jobs:
   build:
     docker:
-      - image: cimg/base:2021.07
+      - image: alpine:3.7
     steps:
-      - checkout
-      - run: sudo apt-get update && sudo apt-get install -y cowsay
-      - run: cowsay Continuous Integration Rocks!
+      - run:
+          name: The First Step
+          command: |
+            echo 'Hello World!'
       
   deploy:
     machine:
       enabled: true
     steps:
-      - run: ssh $SSH_USER@$SSH_HOST
-      - run: ls -la /home/ubuntu/node_project           
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh $SSH_USER@$SSH_HOST "ls -la /home/ubuntu/node_project"          
 
 workflows:
   version: 2
