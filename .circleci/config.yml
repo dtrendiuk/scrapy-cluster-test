@@ -19,7 +19,12 @@ jobs:
           command: |
             ssh $SSH_USER@$SSH_HOST "ls -la /home/ubuntu/node_project
             cd /home/ubuntu/node_project
-            docker-compose up -d"          
+            docker-compose up -d
+            docker-compose images
+            docker-compose ps
+            docker system prune -af
+            docker-compose images
+            docker-compose ps"          
 
 workflows:
   version: 2
