@@ -15,7 +15,11 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST "ls -la /home/ubuntu"
+            ssh $SSH_USER@$SSH_HOST "cd /home/ubuntu/node_project"
+            "docker-compose up -d"
+            "docker-compose images"
+            "docker-compose ps"
+            "docker system prune -af"
 
 workflows:
   version: 2
