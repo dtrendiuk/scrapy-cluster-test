@@ -15,8 +15,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST "cd /home/ubuntu/node_project"
-            "ls -la /home/ubuntu/node_project"
+            ssh $SSH_USER@$SSH_HOST "ls -la /home/ubuntu/node_project"
 
 workflows:
   version: 2
