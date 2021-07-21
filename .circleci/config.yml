@@ -24,7 +24,12 @@ jobs:
             docker-compose ps
             docker system prune -af
             docker-compose images
-            docker-compose ps"          
+            docker-compose ps
+            cd /home/ubuntu/scrapy-cluster-test
+            git pull
+            docker-compose build
+            docker-compose down
+            docker-compose up -d"          
 
 workflows:
   version: 2
