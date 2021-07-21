@@ -1,0 +1,30 @@
+version: 2.0
+
+jobs:
+  build:
+    docker:
+      - image: cimg/node:16.5.0
+    steps:
+      - checkout
+      - run: node --version
+      
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh $SSH_USER@$SSH_HOST "ls -la /home/ubuntu"
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build # only deploy once build job has completed
+          filters:
+            branches:
+              only: circleci-project-setup # only deploy on the circleci-project-setup branch
