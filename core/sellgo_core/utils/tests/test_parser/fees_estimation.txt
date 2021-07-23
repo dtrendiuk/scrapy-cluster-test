@@ -1,0 +1,293 @@
+{
+  'value': '\n        ',
+  'FeesEstimate': {
+    'value': '\n          ',
+    'TimeOfFeesEstimation': {
+      'value': '2019-10-07T05:56:04.413Z'
+    },
+    'TotalFeesEstimate': {
+      'value': '\n            ',
+      'Amount': {
+        'value': '10.68'
+      },
+      'CurrencyCode': {
+        'value': 'USD'
+      }
+    },
+    'FeeDetailList': {
+      'value': '\n            ',
+      'FeeDetail': [{
+          'value': '\n              ',
+          'FeeAmount': {
+            'value': '\n                ',
+            'Amount': {
+              'value': '3.52'
+            },
+            'CurrencyCode': {
+              'value': 'USD'
+            }
+          },
+          'FinalFee': {
+            'value': '\n                ',
+            'Amount': {
+              'value': '3.52'
+            },
+            'CurrencyCode': {
+              'value': 'USD'
+            }
+          },
+          'FeePromotion': {
+            'value': '\n                ',
+            'Amount': {
+              'value': '0.00'
+            },
+            'CurrencyCode': {
+              'value': 'USD'
+            }
+          },
+          'FeeType': {
+            'value': 'ReferralFee'
+          }
+        },
+        {
+          'value': '\n              ',
+          'FeeAmount': {
+            'value': '\n                ',
+            'Amount': {
+              'value': '0.00'
+            },
+            'CurrencyCode': {
+              'value': 'USD'
+            }
+          },
+          'FinalFee': {
+            'value': '\n                ',
+            'Amount': {
+              'value': '0.00'
+            },
+            'CurrencyCode': {
+              'value': 'USD'
+            }
+          },
+          'FeePromotion': {
+            'value': '\n                ',
+            'Amount': {
+              'value': '0.00'
+            },
+            'CurrencyCode': {
+              'value': 'USD'
+            }
+          },
+          'FeeType': {
+            'value': 'VariableClosingFee'
+          }
+        },
+        {
+          'value': '\n              ',
+          'FeeAmount': {
+            'value': '\n                ',
+            'Amount': {
+              'value': '1.00'
+            },
+            'CurrencyCode': {
+              'value': 'USD'
+            }
+          },
+          'FinalFee': {
+            'value': '\n                ',
+            'Amount': {
+              'value': '1.00'
+            },
+            'CurrencyCode': {
+              'value': 'USD'
+            }
+          },
+          'FeePromotion': {
+            'value': '\n                ',
+            'Amount': {
+              'value': '0.00'
+            },
+            'CurrencyCode': {
+              'value': 'USD'
+            }
+          },
+          'FeeType': {
+            'value': 'PerItemFee'
+          }
+        },
+        {
+          'value': '\n              ',
+          'FeeAmount': {
+            'value': '\n                ',
+            'Amount': {
+              'value': '7.16'
+            },
+            'CurrencyCode': {
+              'value': 'USD'
+            }
+          },
+          'FinalFee': {
+            'value': '\n                ',
+            'Amount': {
+              'value': '7.16'
+            },
+            'CurrencyCode': {
+              'value': 'USD'
+            }
+          },
+          'FeePromotion': {
+            'value': '\n                ',
+            'Amount': {
+              'value': '0.00'
+            },
+            'CurrencyCode': {
+              'value': 'USD'
+            }
+          },
+          'FeeType': {
+            'value': 'FBAFees'
+          },
+          'IncludedFeeDetailList': {
+            'value': '\n                ',
+            'FeeDetail': [{
+                'value': '\n                  ',
+                'FeeAmount': {
+                  'value': '\n                    ',
+                  'Amount': {
+                    'value': '0.00'
+                  },
+                  'CurrencyCode': {
+                    'value': 'USD'
+                  }
+                },
+                'FinalFee': {
+                  'value': '\n                    ',
+                  'Amount': {
+                    'value': '0.00'
+                  },
+                  'CurrencyCode': {
+                    'value': 'USD'
+                  }
+                },
+                'FeePromotion': {
+                  'value': '\n                    ',
+                  'Amount': {
+                    'value': '0.00'
+                  },
+                  'CurrencyCode': {
+                    'value': 'USD'
+                  }
+                },
+                'FeeType': {
+                  'value': 'FBAWeightHandling'
+                }
+              },
+              {
+                'value': '\n                  ',
+                'FeeAmount': {
+                  'value': '\n                    ',
+                  'Amount': {
+                    'value': '7.16'
+                  },
+                  'CurrencyCode': {
+                    'value': 'USD'
+                  }
+                },
+                'FinalFee': {
+                  'value': '\n                    ',
+                  'Amount': {
+                    'value': '7.16'
+                  },
+                  'CurrencyCode': {
+                    'value': 'USD'
+                  }
+                },
+                'FeePromotion': {
+                  'value': '\n                    ',
+                  'Amount': {
+                    'value': '0.00'
+                  },
+                  'CurrencyCode': {
+                    'value': 'USD'
+                  }
+                },
+                'FeeType': {
+                  'value': 'FBAPickAndPack'
+                }
+              },
+              {
+                'value': '\n                  ',
+                'FeeAmount': {
+                  'value': '\n                    ',
+                  'Amount': {
+                    'value': '0.00'
+                  },
+                  'CurrencyCode': {
+                    'value': 'USD'
+                  }
+                },
+                'FinalFee': {
+                  'value': '\n                    ',
+                  'Amount': {
+                    'value': '0.00'
+                  },
+                  'CurrencyCode': {
+                    'value': 'USD'
+                  }
+                },
+                'FeePromotion': {
+                  'value': '\n                    ',
+                  'Amount': {
+                    'value': '0.00'
+                  },
+                  'CurrencyCode': {
+                    'value': 'USD'
+                  }
+                },
+                'FeeType': {
+                  'value': 'FBAOrderHandling'
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  'FeesEstimateIdentifier': {
+    'value': '\n          ',
+    'MarketplaceId': {
+      'value': 'ATVPDKIKX0DER'
+    },
+    'IdType': {
+      'value': 'ASIN'
+    },
+    'SellerId': {
+      'value': 'A9T6CYUWGXE57'
+    },
+    'SellerInputIdentifier': {
+      'value': 'B01LH7L0KS'
+    },
+    'IsAmazonFulfilled': {
+      'value': 'true'
+    },
+    'IdValue': {
+      'value': 'B01LH7L0KS'
+    },
+    'PriceToEstimateFees': {
+      'value': '\n            ',
+      'ListingPrice': {
+        'value': '\n              ',
+        'Amount': {
+          'value': '29.33'
+        },
+        'CurrencyCode': {
+          'value': 'USD'
+        }
+      }
+    }
+  },
+  'Status': {
+    'value': 'Success'
+  }
+}

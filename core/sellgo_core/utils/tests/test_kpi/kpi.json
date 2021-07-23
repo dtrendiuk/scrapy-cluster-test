@@ -1,0 +1,19 @@
+{
+  "price": "19.69",
+  "fees": "6.14",
+  "product_cost": "30.54",
+  "daily_est_sales": "0.0",
+  "monthly_est_sales": "0.0",
+  "rank": "1511",
+  "fba_fee": "2.00",
+  "referral_fee": "1.80",
+  "variable_closing_fee": "0.0",
+  "lowest_offer_listings": [
+    {
+      "condition": "New",
+      "fulfillment": "Merchant",
+      "num_offers": "1",
+      "landed_price_amount": "19.69"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+    "status": 200,
+    "data": {
+        "meta_data": {
+            "report_ran_on_datetime": "2020-01-22 20:45:32 +0000",
+            "total_asins_on_this_page": 5,
+            "total_monitored_asins": 5,
+            "tags": []
+        },
+        "headers": [
+            "asin",
+            "last_successful_update",
+            "total",
+            "market"
+        ],
+        "body": [
+            [
+                "B075K7W3BB",
+                "2020-01-22 18:40:01 +0000",
+                "0",
+                "com"
+            ],
+            [
+                "B009FUF6DM",
+                "2020-01-22 04:51:18 +0000",
+                "999",
+                "com"
+            ],
+            [
+                "B003TTL0TE",
+                "2020-01-22 04:39:33 +0000",
+                "999",
+                "com"
+            ],
+            [
+                "B01MXIE9RT",
+                "2020-01-21 05:20:24 +0000",
+                "999",
+                "com"
+            ],
+            [
+                "B000CITK8S",
+                "2020-01-20 04:12:54 +0000",
+                "999",
+                "com"
+            ]
+        ]
+    }
+}

@@ -1,0 +1,90 @@
+version: '3'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_CREATE_TOPICS: "todo_jobs:1:1,done_jobs:1:1"
+      KAFKA_ADVERTISED_HOST_NAME: 172.17.0.1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper
+    depends_on:
+      - zookeeper
+
+  scrapyd:
+    build:
+        context: .
+        dockerfile: ./scrapyd/Dockerfile
+
+    environment:
+        USERNAME: debug
+        PASSWORD: debug
+
+        CALLBACK_URL: https://api.sellgo-dev.com/api/scrapy/webhook
+
+        # BUCKET_NAME: seller-data
+        BUCKET_REGION: sfo2
+        BUCKET_ACCESS_KEY: SQ55BHSBCOCZWZOUMPH6
+        BUCKET_SECRET_KEY: v45fCko3XQdQXVtlpJ9FXOQSpyArayRtrYf3grZGjy4
+
+        SENTRY_DSN: redacted
+        SENTRY_ENABLED: "False"
+
+        KAFKA_HOST: kafka:9092
+        KAFKA_SSL: "False"
+        MONGODB: "mongodb+srv://scrapycluster:XPO3jS14XgfIBPrX@sellgo.faobd.mongodb.net/test"
+        #MONGODB: "mongodb+srv://scrapycluster:5TE7K0Od4uYMayKt@sellgo.5vgbh.mongodb.net/test"
+    ports:
+      - "6800:6800"
+    depends_on:
+      - kafka
+
+  kafka_monitor:
+    build:
+        context: .
+        dockerfile: ./kafka_monitor/Dockerfile
+    entrypoint: ["bash", "/code/entrypoint.sh"]
+    environment:
+        KAFKA_HOST: kafka:9092
+        KAFKA_SSL: "False"
+        SCRAPYD_HOST: scrapyd:6800
+        SCRAPYD_USERNAME: debug
+        SCRAPYD_PASSWORD: debug
+        SENTRY_DSN: redacted
+        SENTRY_ENABLED: "False"
+        MONGODB: "mongodb+srv://scrapycluster:XPO3jS14XgfIBPrX@sellgo.faobd.mongodb.net/test"
+        #MONGODB: "mongodb+srv://scrapycluster:5TE7K0Od4uYMayKt@sellgo.5vgbh.mongodb.net/test"
+    depends_on:
+      - kafka
+      - scrapyd
+      - api # Temporary
+    volumes:
+      - "./kafka_monitor:/code"
+      - "./scrapy_project:/scrapy_project"
+      - "./wait:/wait"
+
+  api:
+    build:
+        context: .
+        dockerfile: ./api/Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+        KAFKA_HOST: kafka:9092
+        KAFKA_SSL: "False"
+        GUNICORN_CMD_ARGS: --reload
+        SENTRY_DSN: redacted
+        SENTRY_ENABLED: "False"
+        MONGODB: "mongodb+srv://scrapycluster:XPO3jS14XgfIBPrX@sellgo.faobd.mongodb.net/test"
+        #MONGODB: "mongodb+srv://scrapycluster:5TE7K0Od4uYMayKt@sellgo.5vgbh.mongodb.net/test"
+        SECRET: "nLcER9KJMc7nxWLS"
+    depends_on:
+      - kafka
+    volumes:
+      - "./api/app:/app"
+      - "./wait:/wait"

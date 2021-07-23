@@ -1,0 +1,10 @@
+mws==0.8.6
+boto3==1.9.171
+pytest==5.0.0
+lxml==4.3.4
+requests==2.22.0
+Scrapy==2.2.0
+scrapy-proxycrawl-middleware==1.1.0
+parsel==1.6.0
+pep8==1.7.1
+pandas==1.2.3

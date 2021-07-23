@@ -1,0 +1,30 @@
+{
+   'result_1day':{
+      'max':{
+         'sales':'0.0',
+         'rank':14923175
+      },
+      'estimation':{
+         'sales':'0.0',
+         'rank':1374555
+      },
+      'min':{
+         'sales':'64.5',
+         'rank':29
+      }
+   },
+   'result_30day':{
+      'max':{
+         'sales':'0.0',
+         'rank':14923175
+      },
+      'estimation':{
+         'sales':'0.0',
+         'rank':1374555
+      },
+      'min':{
+         'sales':'84.72052042160738',
+         'rank':3
+      }
+   }
+}

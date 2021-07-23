@@ -1,0 +1,30 @@
+version: 2.1
+
+jobs:
+  build-test-lint:
+    docker:
+      - image: circleci/python:3.7.3
+    steps:
+      - checkout
+      - run:
+          name: "install_dependencies"
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+      - run:
+          name: "run_tests"
+          command: |
+            . venv/bin/activate
+            pytest --ignore=sellgo_core/webcrawl/scrapy/tests
+      - run:
+          name: "run_pep8"
+          command: |
+            . venv/bin/activate
+            cd sellgo_core
+            pep8 --max-line-length=120 ./
+
+workflows:
+  main:
+    jobs:
+      - build-test-lint
