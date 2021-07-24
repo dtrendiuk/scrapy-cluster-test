@@ -17,8 +17,12 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST "ls -la /root/scrapy-cluster-test"
-        
+            ssh $SSH_USER@$SSH_HOST "ls -la /root/scrapy-cluster-test
+            cd /root/scrapy-cluster-test
+            git pull
+            docker-compose -f docker-compose-dev.yml build
+            docker-compose -f docker-compose-dev.yml down
+            docker-compose -f docker-compose-dev.yml up -d"        
 
 workflows:
   version: 2
