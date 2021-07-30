@@ -1,5 +1,17 @@
 version: '3'
+
 services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
+  mongo_seed:
+    container_name: mongo_seed
+    build: ./mongo_seed
+    depends_on:
+      - mongo
+
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
@@ -20,26 +32,24 @@ services:
     build:
         context: .
         dockerfile: ./scrapyd/Dockerfile
-    container_name: test_scrapyd
+    container_name: scrapyd
 
     environment:
-        USERNAME: debug
-        PASSWORD: debug
+        USERNAME: prod
+        PASSWORD: yWR_snNHYnLo6A8Csuk!gPFg
 
-        CALLBACK_URL: https://api.sellgo-dev.com/api/scrapy/webhook
+        CALLBACK_URL: https://api.sellgo.com/api/scrapy/webhook
 
-        # BUCKET_NAME: seller-data
         BUCKET_REGION: sfo2
-        BUCKET_ACCESS_KEY: SQ55BHSBCOCZWZOUMPH6
-        BUCKET_SECRET_KEY: v45fCko3XQdQXVtlpJ9FXOQSpyArayRtrYf3grZGjy4
+        BUCKET_ACCESS_KEY:
+        BUCKET_SECRET_KEY:
 
-        SENTRY_DSN: redacted
+        SENTRY_DSN:
         SENTRY_ENABLED: "False"
 
-        KAFKA_HOST: kafka:9092
+        KAFKA_HOST: kafka:9092 # separated by semicolon
         KAFKA_SSL: "False"
-        MONGODB: "mongodb+srv://scrapycluster:XPO3jS14XgfIBPrX@sellgo.faobd.mongodb.net/test"
-        #MONGODB: "mongodb+srv://scrapycluster:5TE7K0Od4uYMayKt@sellgo.5vgbh.mongodb.net/test"
+        MONGODB: "mongodb+srv://scrapycluster:5TE7K0Od4uYMayKt@sellgo.5vgbh.mongodb.net/test"
     depends_on:
       - kafka
 
@@ -47,17 +57,19 @@ services:
     build:
         context: .
         dockerfile: ./kafka_monitor/Dockerfile
+
     entrypoint: ["bash", "/code/entrypoint.sh"]
     environment:
-        KAFKA_HOST: kafka:9092
+        KAFKA_HOST: kafka:9092 # separated by semicolon
         KAFKA_SSL: "False"
         SCRAPYD_HOST: scrapyd:6800
-        SCRAPYD_USERNAME: debug
-        SCRAPYD_PASSWORD: debug
-        SENTRY_DSN: redacted
-        SENTRY_ENABLED: "False"
-        MONGODB: "mongodb+srv://scrapycluster:XPO3jS14XgfIBPrX@sellgo.faobd.mongodb.net/test"
-        #MONGODB: "mongodb+srv://scrapycluster:5TE7K0Od4uYMayKt@sellgo.5vgbh.mongodb.net/test"
+        SCRAPYD_USERNAME: prod
+        SCRAPYD_PASSWORD: yWR_snNHYnLo6A8Csuk!gPFg
+
+        SENTRY_DSN: "https://5b8f6d364a8b46cd98a240a7d1e32cba@sentry.io/1501940"
+        SENTRY_ENABLED: "True"
+        SENTRY_ENVIRONMENT: "Prod"
+        MONGODB: "mongodb+srv://scrapycluster:5TE7K0Od4uYMayKt@sellgo.5vgbh.mongodb.net/test"
     depends_on:
       - kafka
       - scrapyd
@@ -71,18 +83,21 @@ services:
     build:
         context: .
         dockerfile: ./api/Dockerfile
-    container_name: test_api
+    container_name: api
     environment:
-        KAFKA_HOST: kafka:9092
-        KAFKA_SSL: "False"
-        GUNICORN_CMD_ARGS: --reload
-        SENTRY_DSN: redacted
-        SENTRY_ENABLED: "False"
-        MONGODB: "mongodb+srv://scrapycluster:XPO3jS14XgfIBPrX@sellgo.faobd.mongodb.net/test"
-        #MONGODB: "mongodb+srv://scrapycluster:5TE7K0Od4uYMayKt@sellgo.5vgbh.mongodb.net/test"
-        SECRET: "nLcER9KJMc7nxWLS"
+      GUNICORN_CMD_ARGS: --reload
+      SENTRY_DSN: "https://5b8f6d364a8b46cd98a240a7d1e32cba@sentry.io/1501940"
+      SENTRY_ENABLED: "True"
+      SENTRY_ENVIRONMENT: "Prod"
+      MONGODB: mongo://mongo
+      KAFKA_HOST: kafka:9092 # separated by semicolon
+      KAFKA_SSL: "Fale"
+      MONGODB: "mongodb+srv://scrapycluster:5TE7K0Od4uYMayKt@sellgo.5vgbh.mongodb.net/test"
+      SCRAPYD_USERNAME: prod
+      SCRAPYD_PASSWORD: yWR_snNHYnLo6A8Csuk!gPFg
     depends_on:
       - kafka
+      - mongo
     volumes:
       - "./api/app:/app"
       - "./wait:/wait"
@@ -112,7 +127,7 @@ services:
       - web-root:/var/www/html
     depends_on:
       - webserver
-    command: certonly --webroot --webroot-path=/var/www/html --email admin@sellgo-dev.com --agree-tos --no-eff-email -d test.poshapke.com
+    command: certonly --webroot --webroot-path=/var/www/html --email admin@sellgo-dev.com --agree-tos --staging --no-eff-email -d itcraft.poshapke.com
 
 volumes:
   certbot-etc:
@@ -121,7 +136,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /var/www/html
+      device: /var/www/html/
       o: bind
   dhparam:
     driver: local

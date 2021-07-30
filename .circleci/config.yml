@@ -17,8 +17,8 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST "ls -la /root/scrapy-cluster-test
-            cd /root/scrapy-cluster-test
+            ssh $SSH_USER_DEV@$SSH_HOST_DEV "ls -la /home/ubuntu/scrapy-cluster-test
+            cd /home-ubuntu/scrapy-cluster-test
             echo "DEPLOYING DEV"
             echo "Pulling latest changes"
             git pull
@@ -36,17 +36,17 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST "ls -la /root/scrapy-cluster-test
-            cd /root/scrapy-cluster-test
+            ssh $SSH_USER_PROD@$SSH_HOST_PROD "ls -la /home/ubuntu/scrapy-cluster-test
+            cd /home/ubuntu/scrapy-cluster-test
             echo "DEPLOYING PROD"
             echo "Pulling latest changes"
             git pull
             echo "Building images"
-            docker-compose -f docker-compose.yml build
+            docker-compose -f docker-compose-prod.yml build
             echo "Scaling docker-compose down"
-            docker-compose -f docker-compose.yml down
+            docker-compose -f docker-compose-prod.yml down
             echo "Scaling docker-compose up"
-            docker-compose -f docker-compose.yml up -d"
+            docker-compose -f docker-compose-prod.yml up -d"
 
 workflows:
   version: 2

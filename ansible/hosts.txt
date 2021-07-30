@@ -1,0 +1,5 @@
+[dev]
+ubuntu20 ansible_host=dev_server_IP
+
+[prod]
+ubuntu202 ansible_host=prod_server_IP
