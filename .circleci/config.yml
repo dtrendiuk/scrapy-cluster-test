@@ -18,7 +18,7 @@ jobs:
           name: Deploy Over SSH
           command: |
             ssh $SSH_USER@$SSH_HOST_DEV "ls -la /home/ubuntu/scrapy-cluster-test
-            cd /home-ubuntu/scrapy-cluster-test
+            cd /home/ubuntu/scrapy-cluster-test
             echo "DEPLOYING DEV"
             echo "Pulling latest changes"
             git pull
