@@ -21,7 +21,7 @@ jobs:
             cd /home/ubuntu/scrapy-cluster-test
             echo "DEPLOYING DEV"
             echo "Pulling latest changes"
-            git pull
+            git pull || { echo 'Pulling failed' ; exit 1; }
             echo "Building images"
             docker-compose -f docker-compose-dev.yml build
             echo "Scaling docker-compose down"
@@ -40,7 +40,7 @@ jobs:
             cd /home/ubuntu/scrapy-cluster-test
             echo "DEPLOYING PROD"
             echo "Pulling latest changes"
-            git pull
+            git pull || { echo 'Pulling failed' ; exit 1; }
             echo "Building images"
             docker-compose -f docker-compose-prod.yml build
             echo "Scaling docker-compose down"
