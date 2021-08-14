@@ -104,7 +104,6 @@ jobs:
 
 workflows:
   version: 2
-
     main:
     jobs:
         - build
@@ -114,7 +113,6 @@ workflows:
         - unittest:
             requires:
               - build
-
   build-and-deploy-dev:
     jobs:
       - build
@@ -123,7 +121,6 @@ workflows:
           filters:
             branches:
               only: dev
-
   build-and-deploy-prod:
     jobs:
       - build
