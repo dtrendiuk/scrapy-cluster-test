@@ -51,47 +51,8 @@ jobs:
           command: |
             . venv/bin/activate
             pytest
-      
-  deploy-dev:
-    machine:
-      enabled: true
-    steps:
-      - run:
-          name: Deploy Over SSH
-          command: |
-            ssh $SSH_USER@$SSH_HOST_DEV "ls -la /home/ubuntu/scrapy-cluster-test
-            cd /home/ubuntu/scrapy-cluster-test
-            echo "DEPLOYING DEV"
-            echo "Pulling latest changes"
-            git pull || { echo 'Pulling failed' ; exit 1; }
-            echo "Building images"
-            docker-compose -f docker-compose-dev.yml build
-            echo "Scaling docker-compose down"
-            docker-compose -f docker-compose-dev.yml down
-            echo "Scaling docker-compose up"
-            docker-compose -f docker-compose-dev.yml up -d"
-
-  deploy-prod:
-    machine:
-      enabled: true
-    steps:
-      - run:
-          name: Deploy Over SSH
-          command: |
-            ssh $SSH_USER@$SSH_HOST_PROD "ls -la /home/ubuntu/scrapy-cluster-test
-            cd /home/ubuntu/scrapy-cluster-test
-            echo "DEPLOYING PROD"
-            echo "Pulling latest changes"
-            git pull || { echo 'Pulling failed' ; exit 1; }
-            echo "Building images"
-            docker-compose -f docker-compose-prod.yml build
-            echo "Scaling docker-compose down"
-            docker-compose -f docker-compose-prod.yml down
-            echo "Scaling docker-compose up"
-            docker-compose -f docker-compose-prod.yml up -d"
 
 workflows:
-  version: 2
   main:
     jobs:
         - build
@@ -101,19 +62,3 @@ workflows:
         - unittest:
             requires:
               - build
-  build-and-deploy-dev:
-    jobs:
-      - build
-      - deploy-dev:
-          requires:
-          filters:
-            branches:
-              only: dev
-  build-and-deploy-prod:
-    jobs:
-      - build
-      - deploy-prod:
-          requires:
-          filters:
-            branches:
-              only: master
